@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+  annotations:
+    com.theguardian.app: Multimedia
+    com.theguardian.stack: ELK
+    com.theguardian.stage: CODE
+    com.theguardian.service: esmigration
+  name: es-migration-datastore
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 4Gi
+  storageClassName: basic
+status: {}

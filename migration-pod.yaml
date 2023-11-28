@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  name: esmigration
+  labels:
+    com.theguardian.app: Multimedia
+    com.theguardian.stack: ELK
+    com.theguardian.stage: CODE
+    com.theguardian.service: esmigration
+spec:
+  # nodeSelector:
+  #   has-san: "true"
+  containers:
+  - image: andyg42/esmigration:13
+    name: es-migration
+    command: [ "/bin/sh", "/docker-entrypoint.sh" ]
+    securityContext:
+      allowPrivilegeEscalation: false
+    volumeMounts:
+    - mountPath: /mnt/data
+      name: datastore-area
+  restartPolicy: Always
+  volumes:
+  - name: datastore-area
+    persistentVolumeClaim:
+      claimName: es-migration-datastore
